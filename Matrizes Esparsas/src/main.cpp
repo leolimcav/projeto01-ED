@@ -1,6 +1,13 @@
 #include <iostream>
+#include "../include/Matrix.h"
 
-int main(int argc, char *argv[])
+using namespace std;
+
+int main()
 {
-	std::cout << "Hello world!" << std::endl;
+  Matrix *matriz = new (std::nothrow) Matrix();
+
+  if (matriz != nullptr)
+    matriz->print();
+  cout << "Matriz criada com sucesso!" << endl;
 }
