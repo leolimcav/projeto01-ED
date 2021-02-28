@@ -1,4 +1,5 @@
 #include <iostream>
+#include <climits>
 #include "../include/List.h"
 
 using namespace std;
@@ -13,10 +14,10 @@ struct Node
 
 List::List()
 {
-  head = new Node();
+  head = new (std::nothrow) Node();
+  head->value = 77777777;
   head->next = head;
   head->prev = head;
-  head->value = 77777777;
 };
 
 List::~List()
@@ -126,7 +127,7 @@ void List::push_back(int key)
 {
   if (empty())
   {
-    Node *newNode = new Node();
+    Node *newNode = new (std::nothrow) Node();
     newNode->value = key;
     newNode->next = head;
     newNode->prev = head;
@@ -135,7 +136,7 @@ void List::push_back(int key)
   }
   else
   {
-    Node *newNode = new Node();
+    Node *newNode = new (std::nothrow) Node();
     newNode->value = key;
     Node *aux = head->prev;
     newNode->next = head;
@@ -149,7 +150,7 @@ void List::push_front(int key)
 {
   if (empty())
   {
-    Node *newNode = new Node();
+    Node *newNode = new (std::nothrow) Node();
     newNode->value = key;
     newNode->next = head;
     newNode->prev = head;
@@ -158,7 +159,7 @@ void List::push_front(int key)
   }
   else
   {
-    Node *newNode = new Node();
+    Node *newNode = new (std::nothrow) Node();
     newNode->value = key;
     Node *aux = head->next;
     head->next = newNode;
@@ -168,20 +169,157 @@ void List::push_front(int key)
   }
 }
 
-int List::pop_back() {}
+int List::pop_back()
+{
+  if (empty())
+    return INT_MIN;
+  else
+  {
+    Node *removeNode = head->prev;
+    Node *aux = removeNode->prev;
+    int value = removeNode->value;
 
-int List::pop_front() {}
+    head->prev = aux;
+    aux->next = head;
+    delete removeNode;
 
-void List::insertAfter(int key, int k) {}
+    return value;
+  }
+}
 
-void List::remove(int key) {}
+int List::pop_front()
+{
+  if (empty())
+    return INT_MIN;
+  else
+  {
+    Node *removeNode = head->next;
+    Node *aux = removeNode->next;
+    int value = removeNode->value;
 
-void List::removeAll(int key) {}
+    head->next = aux;
+    aux->prev = head;
+    delete removeNode;
 
-void List::concat(List *lst) {}
+    return value;
+  }
+}
 
-List *List::copy() {}
+void List::insertAfter(int key, int k)
+{
+  if (size() < k)
+    return;
+  else
+  {
+    int count = 0;
+    Node *aux = head->next;
+    while (aux != head)
+    {
+      if (count == k)
+        break;
+      aux = aux->next;
+      count++;
+    }
+    Node *nextNode = aux->next;
+    Node *newNode = new (std::nothrow) Node();
+    newNode->value = key;
+    newNode->prev = aux;
+    newNode->next = nextNode;
+    aux->next = newNode;
+    nextNode->prev = newNode;
+  }
+}
 
-void List::copyArray(int n, int arr[]) {}
+void List::remove(int key)
+{
+  if (empty())
+    return;
+  else
+  {
+    Node *aux = head;
+    while (aux->next != head)
+    {
+      if (aux->next->value == key)
+      {
+        Node *removeNode = aux->next;
+        Node *nextNode = removeNode->next;
+        aux->next = nextNode;
+        nextNode->prev = aux;
 
-bool List::equal(List *lst) {}
+        delete removeNode;
+      }
+      aux = aux->next;
+    }
+    return;
+  }
+}
+
+void List::removeAll(int key)
+{
+  if (empty())
+    return;
+  else
+  {
+    while (contains(key))
+      remove(key);
+  }
+}
+
+void List::concat(List *lst)
+{
+  if (lst->empty())
+    return;
+  else
+  {
+    Node *aux = lst->head;
+    while (aux->next != lst->head)
+    {
+      aux = aux->next;
+      push_back(aux->value);
+    }
+    lst->clear();
+  }
+}
+
+List *List::copy()
+{
+  List *newList = new (std::nothrow) List();
+
+  Node *aux = head->next;
+  while (aux != head)
+  {
+    newList->push_back(aux->value);
+    aux = aux->next;
+  }
+
+  return newList;
+}
+
+void List::copyArray(int n, int arr[])
+{
+  for (int i = 0; i < n; i++)
+  {
+    push_back(arr[i]);
+  }
+}
+
+bool List::equal(List *lst)
+{
+  if (lst->size() != size())
+    return false;
+  else
+  {
+    Node *aux = head->next;
+    Node *aux2 = lst->head->next;
+
+    while (aux != head && aux2 != lst->head)
+    {
+      if (aux != aux2)
+        return false;
+      aux = aux->next;
+      aux2 = aux2->next;
+    }
+
+    return true;
+  }
+}

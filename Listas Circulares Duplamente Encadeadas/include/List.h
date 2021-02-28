@@ -26,20 +26,20 @@ public:
   // clear: remove all nodes of the list and leaves the head node.
   void clear();
 
-  // push_back: insert an node in the end of the list.
+  // push_back: insert a node in the end of the list.
   void push_back(int key);
 
-  // push_front: insert an node in the beginning of the list.
+  // push_front: insert a node in the beginning of the list.
   void push_front(int key);
 
-  // pop_front: remove an node in the beginning of the list.
+  // pop_front: remove a node in the beginning of the list.
   // return the value of the removed node.
   // if there is no removed node returns INT_MIN.
   int pop_front();
 
-  // pop_back: remove o elemento que esta no final da lista
-  // retorna o valor do no caso ele exista;
-  // ou retorna INT_MIN caso não exista ultimo elemento
+  // pop_back: remove a node from the end of the list.
+  // return the value if the node exists.
+  // return INT_MIN if the node don't exist.
   int pop_back();
 
   // insertAfter: insert a node after the k-th node of the list.
