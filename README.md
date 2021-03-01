@@ -10,7 +10,7 @@ Para compilar é necessário entrar na pasta do programa
 ou
 
 ``` bash
-  cd Listas\ Circulares\ Duplamente\ Encadeadas/
+  cd Matrizes\ Esparsas/
 ```
 
 E executar o comando:
