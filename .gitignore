@@ -9,3 +9,6 @@
 **/*.out
 **/*.app
 **/main
+
+# PDF
+**/*.pdf

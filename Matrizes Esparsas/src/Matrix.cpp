@@ -15,11 +15,11 @@ struct Node
 
 Matrix::Matrix()
 {
-  head = new Node;
-  head->right = nullptr;
-  head->down = nullptr;
-  head->line = 0;
-  head->column = 0;
+  head = new (std::nothrow) Node();
+  head->right = head;
+  head->down = head;
+  head->line = -1;
+  head->column = -1;
   head->value = 0;
 }
 
