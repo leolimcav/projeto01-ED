@@ -1,3 +1,8 @@
+/*
+ *  Aluno: Leonardo Lima Cavalcante
+ *  Matricula: 427665
+*/
+
 #ifndef MATRIX_H
 #define MATRIX_H
 

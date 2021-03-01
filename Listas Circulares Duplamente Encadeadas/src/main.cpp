@@ -1,3 +1,8 @@
+/*
+ *  Aluno: Leonardo Lima Cavalcante
+ *  Matricula: 427665
+*/
+
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -180,7 +185,7 @@ int main()
       cout << "List " << k << " copied to List " << lists_size - 1 << endl;
     }
     // equal list [x] list [k]
-    else if (tokens[0] == "equal" && tokens.size() == 4)
+    else if (tokens[0] == "equal" && tokens.size() == 5)
     {
       int x = std::stoi(tokens[2]);
       int k = std::stoi(tokens[4]);
